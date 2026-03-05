@@ -1222,7 +1222,7 @@ input[type="password"]::-ms-clear {
               <div class="form-group">
                 <label for="email">Email Address<span class="required-star">*</span></label>
                 <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
-                <div class="error-message" id="emailError">Please enter a valid Gmail address</div>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
               </div>
               <div class="form-group">
                 <label for="password">Password<span class="required-star">*</span></label>
@@ -1252,7 +1252,7 @@ input[type="password"]::-ms-clear {
               <div class="form-group">
                 <label for="reg-email">Email Address<span class="required-star">*</span></label>
                 <input type="email" id="reg-email" class="form-control" placeholder="Enter your email address" required>
-                <div class="error-message" id="regEmailError">Please enter a valid Gmail address</div>
+                <div class="error-message" id="regEmailError">Please enter a valid email address</div>
               </div>
               <div class="form-group">
                 <label for="reg-phone">Phone Number<span class="required-star">*</span></label>
@@ -1539,8 +1539,8 @@ input[type="password"]::-ms-clear {
         return true;
       }
 
-      function validateGmail(email) {
-        const re = /^[^\s@]+@gmail\.com$/i;
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         return re.test(email);
       }
 
@@ -1596,10 +1596,10 @@ input[type="password"]::-ms-clear {
           const password = loginPassword.value.trim();
           
           if (!email || email === '' || /^\s+$/.test(email)) {
-            showError('emailError', 'Please enter a valid Gmail address');
+            showError('emailError', 'Please enter a valid email address');
             isValid = false;
-          } else if (!validateGmail(email)) {
-            showError('emailError', 'Please enter a valid Gmail address');
+          } else if (!validateEmail(email)) {
+            showError('emailError', 'Please enter a valid email address');
             isValid = false;
           } else {
             hideError('emailError');
@@ -1671,10 +1671,10 @@ input[type="password"]::-ms-clear {
           }
           
           if (!email || email === '' || /^\s+$/.test(email)) {
-            showError('regEmailError', 'Please enter a valid Gmail address');
+            showError('regEmailError', 'Please enter a valid email address');
             isValid = false;
-          } else if (!validateGmail(email)) {
-            showError('regEmailError', 'Please enter a valid Gmail address');
+          } else if (!validateEmail(email)) {
+            showError('regEmailError', 'Please enter a valid email address');
             isValid = false;
           } else {
             hideError('regEmailError');
