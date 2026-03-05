@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login/Register - Compass Housing Society</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #100E2C;
+      --light: #F8FAFC;
+      --dark: #000000;
+      --accent: #90EE90;
+      --success-bg: #d4edda;
+      --success-text: #155724;
+      --success-border: #c3e6cb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Gantari', system-ui;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+
+    h1 { font-size: 46px; line-height: 1.2; }
+    h2 { font-size: 36px; line-height: 1.3; }
+    h3 { font-size: 24px; line-height: 1.4; }
+    h4, h5, h6 { font-size: 20px; line-height: 1.4; }
+    li, span, p { font-size: 18px; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("Images/transparent-logo.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 570px auto;
+      opacity: 0.10;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrapper {
+      max-width: 1920px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      padding-top: 82px;
+      background-color: var(--light);
+    }
+
+    .content-layer { position: relative; z-index: 1; }
+
+    .success-toast {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--success-bg);
+      color: var(--success-text);
+      border: 1px solid var(--success-border);
+      border-radius: 8px;
+      padding: 16px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      min-width: 300px;
+      max-width: 90%;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        top: 50px;
+        opacity: 0;
+      }
+      to {
+        top: 100px;
+        opacity: 1;
+      }
+    }
+
+    .success-toast.show {
+      display: flex;
+    }
+
+    .success-icon {
+      font-size: 24px;
+    }
+
+    .success-content {
+      flex: 1;
+    }
+
+    .success-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .success-message {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .close-toast {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--success-text);
+      opacity: 0.7;
+      transition: opacity 0.25s ease;
+    }
+
+    .close-toast:hover {
+      opacity: 1;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--primary);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    .navbar-custom { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 24px; 
+      position: relative;
+      padding: 12px 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--light);
+    }
+
+    .brand img { 
+      width: 58px; 
+      height: 58px; 
+      object-fit: cover; 
+      border-radius: 50%; 
+      border: 2px solid var(--light); 
+      opacity: 0.97; 
+      background: transparent; 
+    }
+
+    .nav-menu { 
+      display: flex; 
+      align-items: center; 
+      gap: 24px; 
+      flex: 1; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+    }
+
+    .nav-item { position: relative; }
+    .nav-link-custom {
+      color: var(--light);
+      padding: 4px 0;
+      opacity: 0.9;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-link-custom::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background-color: var(--light);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link-custom:hover::after { width: 100%; }
+    .dropdown-toggle-custom::after { content: " ▾"; position: static; width: auto; height: auto; background: none; margin-left: 4px; }
+
+    .dropdown-menu-custom {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 6px);
+      background-color: var(--dark);
+      border-radius: 10px;
+      border: 1px solid rgba(248, 250, 252, 0.12);
+      min-width: 190px;
+      display: none;
+      padding: 6px 0;
+      z-index: 120;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .dropdown-menu-custom li a {
+      display: block;
+      padding: 8px 18px;
+      color: var(--light);
+      white-space: nowrap;
+      opacity: 0.9;
+      transition: background-color 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+    }
+
+    .dropdown-menu-custom li a:hover { background-color: rgba(27, 27, 27, 0.25); opacity: 1; color: var(--light); }
+    .nav-item.dropdown.open>.dropdown-menu-custom { display: block; }
+
+    .nav-actions { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      margin-left: auto; 
+    }
+
+    .btn-animated { 
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; 
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45); 
+    }
+
+    .btn-animated:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7); 
+      filter: brightness(0.96); 
+    }
+
+    .btn-register {
+      background: var(--light);
+      color: var(--dark);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+      padding-inline: 10px;
+      font-family: 'Gantari', system-ui;
+    }
+
+    .mode-toggle {
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      border-radius: 999px;
+      padding: 3px 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      color: var(--light);
+      background: transparent;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--light);
+      background: transparent;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .mobile-actions {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(248, 250, 252, 0.2);
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .mobile-actions .nav-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .login-hero {
+      padding: 60px 30px;
+      background: linear-gradient(rgba(16, 14, 44, 0.9), rgba(16, 14, 44, 0.9)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: var(--light);
+      text-align: center;
+    }
+
+    .login-hero h1 {
+      color: var(--light);
+      margin-bottom: 15px;
+    }
+
+    .login-hero p {
+      color: var(--light);
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .login-section {
+      padding: 60px 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .login-card {
+      background-color: var(--primary);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      border: 1px solid rgba(248, 250, 252, 0.1);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-header h2 {
+      color: var(--light);
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .login-header p {
+      color: var(--light);
+      opacity: 0.7;
+    }
+
+    .auth-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(248, 250, 252, 0.2);
+    }
+
+    .auth-tab {
+      background: none;
+      border: none;
+      padding: 12px 24px;
+      font-family: 'Gantari', system-ui;
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(248, 250, 252, 0.6);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .auth-tab.active {
+      color: var(--light);
+    }
+
+    .auth-tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--light);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--light);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .required-star {
+      color: #ffffff;
+      margin-left: 4px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      font-family: 'Gantari', system-ui;
+      font-size: 16px;
+      transition: all 0.25s ease;
+      background-color: #FFFFFF !important;
+      color: #000000 !important;
+    }
+
+    .form-control::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #000000;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+      background-color: #FFFFFF !important;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #000000;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.25s ease;
+    }
+
+    .toggle-password:hover {
+      opacity: 1;
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .remember-me input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .remember-me label {
+      color: var(--light);
+      cursor: pointer;
+      font-size: 15px;
+      margin-bottom: 0;
+    }
+
+    .forgot-password {
+      color: var(--light);
+      font-size: 15px;
+      opacity: 0.9;
+      transition: opacity 0.25s ease;
+    }
+
+    .forgot-password:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .btn-login, .btn-register-form {
+      background-color: var(--light);
+      color: var(--primary);
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-family: 'Gantari', system-ui;
+      font-weight: 600;
+      cursor: pointer;
+      width: 70%;
+      font-size: 17px;
+      margin-bottom: 20px;
+      height: 52px;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      transition: none;
+    }
+
+    .btn-login:hover, .btn-register-form:hover {
+      transform: none;
+      box-shadow: none;
+      filter: none;
+      background-color: var(--light);
+      color: var(--primary);
+    }
+
+    .divider {
+      text-align: center;
+      position: relative;
+      margin: 25px 0;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(248, 250, 252, 0.2);
+    }
+
+    .divider span {
+      background-color: var(--primary);
+      padding: 0 15px;
+      color: var(--light);
+      opacity: 0.7;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .register-link, .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--light);
+    }
+
+    .register-link a, .login-link a {
+      color: var(--light);
+      font-weight: 600;
+      opacity: 0.9;
+      transition: opacity 0.25s ease;
+    }
+
+    .register-link a:hover, .login-link a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .remember-me a {
+      color: var(--light);
+      text-decoration: underline;
+      opacity: 0.9;
+      transition: opacity 0.25s ease;
+    }
+
+    .remember-me a:hover {
+      opacity: 1;
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .input-error {
+      border-color: #ff6b6b !important;
+    }
+
+    body.dark-mode {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    body.dark-mode .page-wrapper {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode header,
+    body.dark-mode .site-footer {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode .nav-menu {
+      background: var(--dark);
+    }
+
+    body.dark-mode .dropdown-menu-custom {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode .login-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+    }
+
+    body.dark-mode .login-card {
+      background-color: var(--primary);
+      border-color: rgba(248, 250, 252, 0.1);
+    }
+
+    body.dark-mode .login-header h2 {
+      color: var(--light);
+    }
+
+    body.dark-mode .login-header p {
+      color: var(--light);
+      opacity: 0.7;
+    }
+
+    body.dark-mode .auth-tab {
+      color: rgba(248, 250, 252, 0.6);
+    }
+
+    body.dark-mode .auth-tab.active {
+      color: var(--light);
+    }
+
+    body.dark-mode .auth-tab.active::after {
+      background-color: var(--light);
+    }
+
+    body.dark-mode .auth-tabs {
+      border-bottom: 1px solid rgba(248, 250, 252, 0.2);
+    }
+
+    body.dark-mode .form-group label {
+      color: var(--light);
+    }
+
+    body.dark-mode .form-control {
+      background-color: #FFFFFF !important;
+      color: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    body.dark-mode .form-control::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-mode .form-control:focus {
+      border-color: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+      background-color: #FFFFFF !important;
+    }
+
+    body.dark-mode .toggle-password {
+      color: #000000;
+    }
+
+    body.dark-mode .remember-me label {
+      color: var(--light);
+    }
+
+    body.dark-mode .forgot-password {
+      color: var(--light);
+    }
+
+    body.dark-mode .forgot-password:hover {
+      opacity: 1;
+    }
+
+    body.dark-mode .btn-login, body.dark-mode .btn-register-form {
+      background-color: var(--light);
+      color: var(--primary);
+    }
+
+    body.dark-mode .btn-login:hover, body.dark-mode .btn-register-form:hover {
+      background-color: var(--light);
+      color: var(--primary);
+      transform: none;
+      box-shadow: none;
+    }
+
+    body.dark-mode .divider::before {
+      background-color: rgba(248, 250, 252, 0.2);
+    }
+
+    body.dark-mode .divider span {
+      background-color: var(--primary);
+      color: var(--light);
+    }
+
+    body.dark-mode .register-link, body.dark-mode .login-link {
+      color: var(--light);
+    }
+
+    body.dark-mode .register-link a, body.dark-mode .login-link a {
+      color: var(--light);
+    }
+
+    body.dark-mode .register-link a:hover, body.dark-mode .login-link a:hover {
+      opacity: 1;
+    }
+
+    body.dark-mode .remember-me a {
+      color: var(--light);
+    }
+
+    .site-footer {
+      background: var(--primary);
+      color: var(--light);
+      font-family: 'Gantari', system-ui;
+      width: 100%;
+      padding: 40px 0 0;
+    }
+
+    .footer-inner {
+      padding: 0 0 18px;
+    }
+
+    .site-footer,
+    .site-footer p,
+    .site-footer li,
+    .site-footer a,
+    .site-footer span,
+    .site-footer .footer-column-title,
+    .site-footer .footer-brand-title,
+    .site-footer .footer-text,
+    .site-footer .footer-contact-line,
+    .site-footer .footer-label,
+    .site-footer .footer-bottom {
+      font-family: 'Gantari', system-ui;
+      color: var(--light);
+    }
+
+    .site-footer p, .site-footer li, .site-footer span, .site-footer .footer-text, .site-footer .footer-contact-line {
+      font-size: 18px;
+    }
+
+    .footer-column-title {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+
+    .footer-brand-title .footer-column-title {
+      font-weight: 800;
+    }
+
+    .footer-text {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      max-width: 280px;
+    }
+
+    .footer-contact-line {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .footer-label {
+      font-weight: 600;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .footer-links {
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+      font-size: 18px;
+      list-style: none;
+    }
+
+    .footer-links li a {
+      transition: opacity 0.2s ease;
+      color: var(--light);
+      text-decoration: none;
+    }
+
+    .footer-links li a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-single-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-single-image img {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+      margin-bottom: 18px;
+    }
+    input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+    .footer-single-image img:hover {
+      transform: translateY(-5px);
+    }
+
+    .footer-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 5px;
+    }
+
+    .footer-social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      font-size: 18px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .footer-social-icon:hover {
+      background: var(--light);
+      color: var(--primary);
+      transform: translateY(-4px);
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 22px;
+      text-align: center;
+      font-size: 18px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 992px) {
+      .footer-grid .col-md-4:first-child {
+        width: 26%;
+        padding-right: 15px;
+      }
+      .footer-grid .col-md-4:nth-child(2) {
+        width: 32%;
+        padding-left: 20px;
+      }
+      .footer-grid .col-md-2 {
+        width: 18%;
+      }
+      .footer-grid .col-md-2:last-child {
+        width: 18%;
+      }
+      .footer-text {
+        max-width: 300px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-grid > [class*="col-"] {
+        width: 100%;
+        max-width: 450px;
+        margin-bottom: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-text {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-contact-line {
+        justify-content: center;
+      }
+      .footer-brand-title {
+        justify-content: center;
+      }
+      .footer-single-image img {
+        max-width: 180px;
+      }
+    }
+
+    @media (max-width: 1030px) {
+      .navbar-custom { 
+        padding: 10px 16px;
+        gap: 10px; 
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      
+      .brand {
+        order: 1;
+        flex: 1;
+      }
+      
+      .nav-actions.desktop-actions {
+        display: none;
+      }
+      
+      .menu-toggle {
+        display: inline-flex;
+        order: 3;
+        margin-left: 10px;
+        position: relative;
+        z-index: 120;
+      }
+      
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 280px;
+        height: auto;
+        max-height: 90vh;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background: var(--dark);
+        padding: 20px;
+        border-radius: 0 0 0 16px;
+        box-shadow: -12px 0 30px rgba(0, 0, 0, 0.85);
+        z-index: 110;
+        gap: 12px;
+        transition: right 0.3s ease;
+        border: 1px solid rgba(248, 250, 252, 0.6);
+        overflow-y: auto;
+        margin-top: 0;
+      }
+
+      body.dark-mode .nav-menu {
+        background: var(--dark);
+      }
+
+      .nav-menu.nav-open { right: 0; }
+      .nav-item { width: 100%; }
+      .nav-link-custom { width: 100%; padding: 10px 0; }
+      .dropdown-menu-custom { 
+        position: static; 
+        margin-top: 4px; 
+        background: transparent; 
+        border-radius: 0; 
+        border: none; 
+        box-shadow: none; 
+        padding: 0 0 4px 10px; 
+        display: none;
+      }
+      
+      .dropdown-menu-custom li a { padding: 8px 0; font-size: 15px; opacity: 0.85; }
+      .nav-item.dropdown.open>.dropdown-menu-custom { display: block; }
+      
+      .mobile-actions {
+        display: flex;
+      }
+      
+      .menu-toggle {
+        margin-left: auto;
+        position: relative;
+        z-index: 120;
+      }
+      
+      .login-hero {
+        padding: 40px 20px;
+      }
+      
+      .login-section {
+        padding: 60px 20px;
+      }
+      
+      .login-card {
+        padding: 30px 25px;
+      }
+      
+      .auth-tabs {
+        margin-bottom: 15px;
+      }
+      
+      .auth-tab {
+        padding: 10px 16px;
+        font-size: 16px;
+      }
+      
+      .btn-login, .btn-register-form {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 1031px) {
+      .mobile-actions {
+        display: none;
+      }
+      
+      .nav-actions.desktop-actions {
+        display: flex;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page-wrapper { padding-top: 70px; }
+      .login-hero h1 { font-size: 36px; }
+      .login-header h2 { font-size: 28px; }
+      .login-container {
+        max-width: 100%;
+      }
+      .success-toast {
+        min-width: 250px;
+        padding: 12px 18px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .page-wrapper { padding-top: 60px; }
+      .brand span { font-size: 14px; }
+      .brand img { width: 40px; height: 40px; }
+      .nav-menu {
+        width: 250px;
+        max-height: 85vh;
+        top: 60px;
+        right: -250px;
+      }
+      .mobile-actions { padding: 15px 0; }
+      .mobile-actions .nav-actions { flex-direction: column; gap: 10px; }
+      .menu-toggle { margin-left: 10px; }
+      .login-hero h1 { font-size: 28px; }
+      .login-hero p { font-size: 16px; }
+      .login-card {
+        padding: 25px 20px;
+      }
+      .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .auth-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+      .auth-tab {
+        width: 100%;
+        text-align: center;
+      }
+      .btn-login, .btn-register-form {
+        width: 100%;
+      }
+      .success-toast {
+        min-width: 220px;
+        padding: 10px 15px;
+        top: 80px;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .nav-menu { width: 220px; right: -220px; }
+      .login-hero h1 { font-size: 24px; }
+      .success-toast {
+        max-width: 90%;
+        padding: 8px 12px;
+      }
+    }
+    
+    @media (max-width: 350px) {
+      .brand span { display: none; }
+      .brand { gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="content-layer">
+      <div class="success-toast" id="successToast">
+        <div class="success-icon">✅</div>
+        <div class="success-content">
+          <div class="success-title" id="toastTitle">Success</div>
+          <div class="success-message" id="toastMessage"></div>
+        </div>
+        <button class="close-toast" id="closeToast">&times;</button>
+      </div>
+
+      <header>
+        <nav class="navbar-custom">
+          <div class="brand">
+            <img src="Images/logo.jpeg" alt="Compass Housing Society Logo">
+            <span>Compass Housing <br> Society</span>
+          </div>
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link-custom">Home1</a>
+            </li>
+            <li class="nav-item">
+              <a href="home2.html" class="nav-link-custom">Home2</a>
+            </li>
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">Services</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="services.html">Service</a></li>
+                <li><a href="servicedetails.html">Services Details</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">Blog</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="blog.html">Blog Us</a></li>
+                <li><a href="blogdetails.html">Blog Details</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">About Us</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="additionalpage.html"> Additional Screens</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="contactus.html" class="nav-link-custom">Contact Us</a>
+            </li>
+            <div class="mobile-actions">
+              <div class="nav-actions">
+                <button class="mode-toggle" type="button" aria-label="Toggle dark / light mode">
+                  <span class="mode-icon">🌙</span>
+                </button>
+                <a href="login.html">
+                  <button class="btn-register btn-animated" type="button">Login</button>
+                </a>
+              </div>
+            </div>
+          </ul>
+          <div class="nav-actions desktop-actions">
+            <button class="mode-toggle" type="button" aria-label="Toggle dark / light mode">
+              <span class="mode-icon">🌙</span>
+            </button>
+            <a href="login.html">
+              <button class="btn-register btn-animated" type="button">Login</button>
+            </a>
+          </div>
+          <button class="menu-toggle" type="button" aria-label="Toggle menu">☰</button>
+        </nav>
+      </header>
+
+      <section class="login-hero">
+        <div class="container">
+          <h1>Welcome to Compass Housing</h1>
+          <p>Access your account to manage properties, view listings, and connect with our real estate experts.</p>
+        </div>
+      </section>
+
+      <section class="login-section">
+        <div class="login-container">
+          <div class="login-card">
+            <div class="login-header">
+              <h2>Account Access</h2>
+              <p>Login or create a new account to get started</p>
+            </div>
+            <div class="auth-tabs">
+              <button class="auth-tab active" data-tab="login">Login</button>
+              <button class="auth-tab" data-tab="register">Register</button>
+            </div>
+            <form id="loginForm" class="auth-form active">
+              <div class="form-group">
+                <label for="email">Email Address<span class="required-star">*</span></label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                <div class="error-message" id="emailError">Please enter a valid Gmail address</div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password<span class="required-star">*</span></label>
+                <div class="password-container">
+                  <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                  <button type="button" class="toggle-password" id="togglePassword">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="error-message" id="passwordError">Password is required</div>
+              </div>
+              
+              <button type="submit" class="btn-login">Login</button>
+              <div class="divider">
+                <span>Or continue with</span>
+              </div>
+              <div class="register-link">
+                <p>Don't have an account? <a href="#" class="switch-to-register">Register here</a></p>
+              </div>
+            </form>
+            <form id="registerForm" class="auth-form">
+              <div class="form-group">
+                <label for="reg-name">Full Name<span class="required-star">*</span></label>
+                <input type="text" id="reg-name" class="form-control" placeholder="Enter your full name" required>
+                <div class="error-message" id="nameError">Please enter a valid full name (cannot be empty spaces)</div>
+              </div>
+              <div class="form-group">
+                <label for="reg-email">Email Address<span class="required-star">*</span></label>
+                <input type="email" id="reg-email" class="form-control" placeholder="Enter your email address" required>
+                <div class="error-message" id="regEmailError">Please enter a valid Gmail address</div>
+              </div>
+              <div class="form-group">
+                <label for="reg-phone">Phone Number<span class="required-star">*</span></label>
+                <input type="tel" id="reg-phone" class="form-control" placeholder="Enter 10-digit phone number starting with 6-9" required>
+                <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number starting with 6-9</div>
+              </div>
+              <div class="form-group">
+                <label for="reg-password">Password<span class="required-star">*</span></label>
+                <div class="password-container">
+                  <input type="password" id="reg-password" class="form-control" placeholder="Create a password (min 8 characters)" required>
+                  <button type="button" class="toggle-password" id="toggleRegPassword">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="error-message" id="regPasswordError">Password must be at least 8 characters</div>
+              </div>
+              <div class="form-group">
+                <label for="reg-confirm-password">Confirm Password<span class="required-star">*</span></label>
+                <div class="password-container">
+                  <input type="password" id="reg-confirm-password" class="form-control" placeholder="Confirm your password" required>
+                  <button type="button" class="toggle-password" id="toggleRegConfirmPassword">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+              </div>
+              <div class="form-group">
+                <div class="remember-me">
+                  <input type="checkbox" id="terms" required>
+                  <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a><span class="required-star">*</span></label>
+                </div>
+                <div class="error-message" id="termsError">You must agree to the terms</div>
+              </div>
+              <button type="submit" class="btn-register-form">Create Account</button>
+              <div class="divider">
+                <span>Or sign up with</span>
+              </div>
+              <div class="login-link">
+                <p>Already have an account? <a href="#" class="switch-to-login">Login here</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer" id="contact">
+        <div class="container">
+          <div class="footer-inner">
+            <div class="row footer-grid g-4 align-items-start">
+              <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
+                <div class="footer-single-image">
+                  <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Compass Housing Project">
+                  <div class="footer-social-icons">
+                    <a href="https://www.facebook.com/" class="footer-social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com/" class="footer-social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/" class="footer-social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/" class="footer-social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Compass Housing</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="index.html">Start Here</a></li>
+                  <li><a href="aboutus.html">Our Story</a></li>
+                  <li><a href="services.html">What We Offer</a></li>
+                  <li><a href="blog.html">Latest News</a></li>
+                  <li><a href="contactus.html">Get in Touch</a></li>
+                </ul>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Quick Links</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="aboutus.html">About us</a></li>
+                  <li><a href="services.html">Services</a></li>
+                  <li><a href="blog.html">Blog</a></li>
+                  <li><a href="contactus.html">Contact us</a></li>
+                </ul>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Properties</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="#">Luxury Apartments</a></li>
+                  <li><a href="#">Gated Communities</a></li>
+                  <li><a href="#">Commercial Spaces</a></li>
+                  <li><a href="#">Villas & Bungalows</a></li>
+                  <li><a href="#">Upcoming Projects</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              © Copyright Compass Housing Society 2024. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const modeToggles = document.querySelectorAll(".mode-toggle");
+      const modeIcons = document.querySelectorAll(".mode-icon");
+      const storedTheme = localStorage.getItem("compass-theme");
+
+      if (storedTheme === "dark") {
+        body.classList.add("dark-mode");
+        modeIcons.forEach(icon => icon.textContent = "☀️");
+      } else {
+        modeIcons.forEach(icon => icon.textContent = "🌙");
+      }
+
+      modeToggles.forEach(toggle => {
+        toggle.addEventListener("click", function () {
+          const isDark = body.classList.toggle("dark-mode");
+          modeIcons.forEach(icon => icon.textContent = isDark ? "☀️" : "🌙");
+          localStorage.setItem("compass-theme", isDark ? "dark" : "light");
+        });
+      });
+
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+
+      function closeMenu() {
+        if (navMenu) navMenu.classList.remove("nav-open");
+      }
+
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", function () {
+          navMenu.classList.toggle("nav-open");
+        });
+
+        document.addEventListener('click', function(event) {
+          const isClickInsideMenu = navMenu.contains(event.target);
+          const isClickOnToggle = menuToggle.contains(event.target);
+          
+          if (window.innerWidth <= 1030 && !isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('nav-open')) {
+            closeMenu();
+          }
+        });
+
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && window.innerWidth <= 1030 && navMenu.classList.contains('nav-open')) {
+            closeMenu();
+          }
+        });
+      }
+
+      const dropdownItems = document.querySelectorAll(".nav-item.dropdown > .nav-link-custom");
+
+      dropdownItems.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const parent = this.parentElement;
+
+          document.querySelectorAll(".nav-item.dropdown.open").forEach(item => {
+            if (item !== parent) {
+              item.classList.remove("open");
+            }
+          });
+
+          parent.classList.toggle("open");
+        });
+      });
+
+      const normalLinks = document.querySelectorAll(".nav-item:not(.dropdown) .nav-link-custom, .nav-item:not(.dropdown) a");
+
+      normalLinks.forEach(l => {
+        l.addEventListener("click", function () {
+          if (window.innerWidth <= 1030) {
+            closeMenu();
+          }
+        });
+      });
+
+      const mobileActionLinks = document.querySelectorAll(".mobile-actions a, .mobile-actions .mode-toggle, .mobile-actions .btn-register");
+      mobileActionLinks.forEach(link => {
+        link.addEventListener("click", function () {
+          if (window.innerWidth <= 1030) {
+            closeMenu();
+          }
+        });
+      });
+
+      const authTabs = document.querySelectorAll('.auth-tab');
+      const authForms = document.querySelectorAll('.auth-form');
+      const switchToRegisterLinks = document.querySelectorAll('.switch-to-register');
+      const switchToLoginLinks = document.querySelectorAll('.switch-to-login');
+
+      function switchTab(tabName) {
+        authTabs.forEach(tab => {
+          if (tab.dataset.tab === tabName) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+
+        authForms.forEach(form => {
+          if (form.id === `${tabName}Form`) {
+            form.classList.add('active');
+          } else {
+            form.classList.remove('active');
+          }
+        });
+      }
+
+      authTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const tabName = this.dataset.tab;
+          switchTab(tabName);
+        });
+      });
+
+      switchToRegisterLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchTab('register');
+        });
+      });
+
+      switchToLoginLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchTab('login');
+        });
+      });
+
+      function setupPasswordToggle(toggleBtn, passwordField) {
+        if (toggleBtn && passwordField) {
+          toggleBtn.addEventListener('click', function() {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            const icon = toggleBtn.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+          });
+        }
+      }
+
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const toggleRegPassword = document.getElementById('toggleRegPassword');
+      const regPasswordInput = document.getElementById('reg-password');
+      const toggleRegConfirmPassword = document.getElementById('toggleRegConfirmPassword');
+      const regConfirmPasswordInput = document.getElementById('reg-confirm-password');
+
+      setupPasswordToggle(togglePassword, passwordInput);
+      setupPasswordToggle(toggleRegPassword, regPasswordInput);
+      setupPasswordToggle(toggleRegConfirmPassword, regConfirmPasswordInput);
+
+      function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        let inputElement = errorElement.previousElementSibling;
+        if (inputElement && inputElement.classList.contains('password-container')) {
+          inputElement = inputElement.querySelector('.form-control');
+        }
+        if (elementId === 'termsError') {
+          inputElement = document.getElementById('terms');
+        }
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        if (inputElement) {
+          inputElement.classList.add('input-error');
+        }
+        return false;
+      }
+
+      function hideError(elementId) {
+        const errorElement = document.getElementById(elementId);
+        let inputElement = errorElement.previousElementSibling;
+        if (inputElement && inputElement.classList.contains('password-container')) {
+          inputElement = inputElement.querySelector('.form-control');
+        }
+        if (elementId === 'termsError') {
+          inputElement = document.getElementById('terms');
+        }
+        errorElement.style.display = 'none';
+        if (inputElement) {
+          inputElement.classList.remove('input-error');
+        }
+        return true;
+      }
+
+      function validateGmail(email) {
+        const re = /^[^\s@]+@gmail\.com$/i;
+        return re.test(email);
+      }
+
+      function validateName(name) {
+        return name.trim().length > 0 && !/^\s+$/.test(name);
+      }
+
+      function validatePhone(phone) {
+        const cleaned = phone.replace(/\D/g, '');
+        if (cleaned.length !== 10) return false;
+        const firstDigit = cleaned.charAt(0);
+        return /^[6-9]/.test(firstDigit);
+      }
+
+      const successToast = document.getElementById('successToast');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMessage = document.getElementById('toastMessage');
+      const closeToast = document.getElementById('closeToast');
+
+      function showToast(title, message) {
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        successToast.classList.add('show');
+        setTimeout(() => {
+          successToast.classList.remove('show');
+        }, 5000);
+      }
+
+      if (closeToast) {
+        closeToast.addEventListener('click', function() {
+          successToast.classList.remove('show');
+        });
+      }
+
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        const loginEmail = document.getElementById('email');
+        const loginPassword = document.getElementById('password');
+        
+        loginEmail.addEventListener('input', function() {
+          this.value = this.value.trimStart();
+        });
+        
+        loginPassword.addEventListener('input', function() {
+          this.value = this.value.trimStart();
+        });
+        
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          let isValid = true;
+          
+          const email = loginEmail.value.trim();
+          const password = loginPassword.value.trim();
+          
+          if (!email || email === '' || /^\s+$/.test(email)) {
+            showError('emailError', 'Please enter a valid Gmail address');
+            isValid = false;
+          } else if (!validateGmail(email)) {
+            showError('emailError', 'Please enter a valid Gmail address');
+            isValid = false;
+          } else {
+            hideError('emailError');
+          }
+          
+          if (!password || password === '' || /^\s+$/.test(password)) {
+            showError('passwordError', 'Password is required and cannot be empty');
+            isValid = false;
+          } else {
+            hideError('passwordError');
+          }
+          
+          if (isValid) {
+            showToast('Login Successful', `Welcome back! You have successfully logged in as ${email}.`);
+            loginForm.reset();
+          }
+        });
+      }
+
+      const registerForm = document.getElementById('registerForm');
+      if (registerForm) {
+        const regName = document.getElementById('reg-name');
+        const regEmail = document.getElementById('reg-email');
+        const regPhone = document.getElementById('reg-phone');
+        const regPassword = document.getElementById('reg-password');
+        const regConfirmPassword = document.getElementById('reg-confirm-password');
+        const terms = document.getElementById('terms');
+        
+        regName.addEventListener('input', function() {
+          this.value = this.value.trimStart();
+        });
+        
+        regEmail.addEventListener('input', function() {
+          this.value = this.value.trimStart();
+        });
+        
+        regPhone.addEventListener('input', function() {
+          let value = this.value.replace(/\D/g, '');
+          if (value.length > 10) {
+            value = value.substring(0, 10);
+          }
+          this.value = value;
+        });
+        
+        regPassword.addEventListener('input', function() {
+          this.value = this.value.trimStart();
+        });
+        
+        regConfirmPassword.addEventListener('input', function() {
+          this.value = this.value.trimStart();
+        });
+        
+        registerForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          let isValid = true;
+          
+          const name = regName.value.trim();
+          const email = regEmail.value.trim();
+          const phone = regPhone.value;
+          const password = regPassword.value.trim();
+          const confirmPassword = regConfirmPassword.value.trim();
+          const termsChecked = terms.checked;
+          
+          if (!name || name === '' || /^\s+$/.test(name)) {
+            showError('nameError', 'Please enter a valid full name (cannot be empty spaces)');
+            isValid = false;
+          } else {
+            hideError('nameError');
+          }
+          
+          if (!email || email === '' || /^\s+$/.test(email)) {
+            showError('regEmailError', 'Please enter a valid Gmail address');
+            isValid = false;
+          } else if (!validateGmail(email)) {
+            showError('regEmailError', 'Please enter a valid Gmail address');
+            isValid = false;
+          } else {
+            hideError('regEmailError');
+          }
+          
+          if (!phone || phone === '' || /^\s+$/.test(phone)) {
+            showError('phoneError', 'Phone number is required');
+            isValid = false;
+          } else if (!validatePhone(phone)) {
+            showError('phoneError', 'Please enter a valid 10-digit phone number starting with 6-9');
+            isValid = false;
+          } else {
+            hideError('phoneError');
+          }
+          
+          if (!password || password === '' || /^\s+$/.test(password)) {
+            showError('regPasswordError', 'Password is required');
+            isValid = false;
+          } else if (password.length < 8) {
+            showError('regPasswordError', 'Password must be at least 8 characters long');
+            isValid = false;
+          } else {
+            hideError('regPasswordError');
+          }
+          
+          if (password !== confirmPassword) {
+            showError('confirmPasswordError', 'Passwords do not match');
+            isValid = false;
+          } else {
+            hideError('confirmPasswordError');
+          }
+          
+          if (!termsChecked) {
+            showError('termsError', 'You must agree to the Terms & Conditions and Privacy Policy');
+            isValid = false;
+          } else {
+            hideError('termsError');
+          }
+          
+          if (isValid) {
+            showToast('Registration Successful', `Welcome ${name}! Your account has been created successfully.`);
+            registerForm.reset();
+            document.getElementById('terms').checked = false;
+          }
+        });
+      }
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1030) {
+          closeMenu();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

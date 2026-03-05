@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Service Details - Compass Housing Society</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #100E2C;
+      --light: #F8FAFC;
+      --dark: #000000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Gantari', system-ui;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+
+    h1 { font-size: 46px; line-height: 1.2; }
+    h2 { font-size: 36px; line-height: 1.3; }
+    h3 { font-size: 24px; line-height: 1.4; }
+    h4, h5, h6 { font-size: 20px; line-height: 1.4; }
+    li, span, p { font-size: 18px; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("Images/transparent-logo.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 570px auto;
+      opacity: 0.10;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrapper {
+      max-width: 1920px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      padding-top: 82px;
+      background-color: var(--light);
+    }
+
+    .content-layer { position: relative; z-index: 1; }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--primary);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    .navbar-custom { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 24px; 
+      position: relative;
+      padding: 12px 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--light);
+    }
+
+    .brand img { 
+      width: 58px; 
+      height: 58px; 
+      object-fit: cover; 
+      border-radius: 50%; 
+      border: 2px solid var(--light); 
+      opacity: 0.97; 
+      background: transparent; 
+    }
+
+    .nav-menu { 
+      display: flex; 
+      align-items: center; 
+      gap: 24px; 
+      flex: 1; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+    }
+
+    .nav-item { position: relative; }
+    .nav-link-custom {
+      color: var(--light);
+      padding: 4px 0;
+      opacity: 0.9;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-link-custom::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background-color: var(--light);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link-custom:hover::after { width: 100%; }
+    .dropdown-toggle-custom::after { content: " ▾"; position: static; width: auto; height: auto; background: none; margin-left: 4px; }
+
+    .dropdown-menu-custom {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 6px);
+      background-color: var(--dark);
+      border-radius: 10px;
+      border: 1px solid rgba(248, 250, 252, 0.12);
+      min-width: 190px;
+      display: none;
+      padding: 6px 0;
+      z-index: 120;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .dropdown-menu-custom li a {
+      display: block;
+      padding: 8px 18px;
+      color: var(--light);
+      white-space: nowrap;
+      opacity: 0.9;
+      transition: background-color 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+    }
+
+    .dropdown-menu-custom li a:hover { background-color: rgba(27, 27, 27, 0.25); opacity: 1; color: var(--light); }
+    .nav-item.dropdown.open>.dropdown-menu-custom { display: block; }
+
+    .nav-actions { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      margin-left: auto; 
+    }
+
+    .btn-animated { 
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; 
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45); 
+    }
+
+    .btn-animated:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7); 
+      filter: brightness(0.96); 
+    }
+
+    .btn-register {
+      background: var(--light);
+      color: var(--dark);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+      padding-inline: 10px;
+      font-family: 'Gantari', system-ui;
+    }
+
+    .mode-toggle {
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      border-radius: 999px;
+      padding: 3px 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      color: var(--light);
+      background: transparent;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--light);
+      background: transparent;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .mobile-actions {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(248, 250, 252, 0.2);
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .mobile-actions .nav-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .service-detail-hero {
+      height: 50vh;
+      min-height: 400px;
+      background: linear-gradient(rgba(16, 14, 44, 0.85), rgba(16, 14, 44, 0.9)), 
+                  url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      color: var(--light);
+      padding: 0 30px;
+    }
+
+    .service-detail-hero-content {
+      max-width: 800px;
+    }
+
+    .service-detail-hero h1 {
+      color: var(--light);
+      margin-bottom: 20px;
+      font-size: 52px;
+    }
+
+    .service-detail-hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .section {
+      padding: 80px 30px;
+    }
+
+    .section-title {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: var(--dark);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .service-overview {
+      background: rgba(16, 14, 44, 0.05);
+    }
+
+    .overview-content {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .overview-image {
+      flex: 1;
+      height: 400px;
+      border-radius: 10px;
+      background: url('https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .overview-text {
+      flex: 1;
+    }
+
+    .overview-text h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .overview-text p {
+      color: var(--dark);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .service-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(27, 27, 27, 0.1);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .feature-card h4 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .feature-card p {
+      color: var(--dark);
+      text-align: center;
+    }
+
+    .benefits-list {
+      margin-top: 30px;
+    }
+
+    .benefits-list h3 {
+      color: var(--primary);
+      margin-top: 50px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .benefit-icon {
+      font-size: 24px;
+      color: var(--primary);
+      min-width: 30px;
+    }
+
+    .benefit-content h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .benefit-content p {
+      color: var(--dark);
+    }
+
+    .process-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 50px auto 0;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--primary);
+      opacity: 0.2;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 80px;
+    }
+
+    .timeline-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      color: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .timeline-content h4 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .timeline-content p {
+      color: var(--dark);
+    }
+
+    .pricing-section {
+      background: var(--primary);
+      color: var(--light);
+    }
+
+    .pricing-section .section-title h2,
+    .pricing-section .section-title p {
+      color: var(--light);
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .pricing-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .pricing-card.featured {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .pricing-card h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .price {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .price span {
+      font-size: 24px;
+      color: rgba(27, 27, 27, 0.7);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 10px 0;
+      color: var(--dark);
+      border-bottom: 1px solid rgba(27, 27, 27, 0.1);
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features li::before {
+      content: "✓";
+      color: var(--primary);
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .btn-pricing {
+      background: var(--primary);
+      color: var(--light);
+      padding: 12px 30px;
+      border-radius: 5px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Gantari', system-ui;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .faq-section {
+      background: rgba(16, 14, 44, 0.05);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+
+    .faq-item {
+      background: var(--light);
+      border-radius: 10px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(27, 27, 27, 0.1);
+    }
+
+    .faq-question {
+      padding: 20px 30px;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .faq-answer {
+      padding: 0 30px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      color: var(--dark);
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 20px 30px;
+      max-height: 500px;
+    }
+
+    .faq-toggle {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .contact-cta {
+      text-align: center;
+      background: var(--primary);
+      color: var(--light);
+      padding: 80px 30px;
+      border-radius: 10px;
+      margin: 80px 30px 0;
+    }
+
+    .contact-cta h2 {
+      color: var(--light);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .contact-cta p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+      text-align: center;
+    }
+
+    .btn-contact {
+      background: var(--light);
+      color: var(--dark);
+      padding: 15px 40px;
+      border-radius: 5px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Gantari', system-ui;
+      font-size: 18px;
+    }
+
+    body.dark-mode {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    body.dark-mode .page-wrapper {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode header,
+    body.dark-mode .site-footer {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode .nav-menu {
+      background: var(--dark);
+    }
+
+    body.dark-mode .dropdown-menu-custom {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode .section-title h2 {
+      color: var(--light);
+    }
+
+    body.dark-mode .section-title p {
+      color: var(--light);
+    }
+
+    body.dark-mode .feature-card,
+    body.dark-mode .pricing-card,
+    body.dark-mode .faq-item {
+      background-color: var(--dark);
+      border-color: rgba(248, 250, 252, 0.1);
+    }
+
+    body.dark-mode .overview-text h3,
+    body.dark-mode .feature-card h4,
+    body.dark-mode .benefit-content h4,
+    body.dark-mode .timeline-content h4,
+    body.dark-mode .pricing-card h3,
+    body.dark-mode .faq-question {
+      color: var(--light);
+    }
+
+    body.dark-mode .overview-text p,
+    body.dark-mode .feature-card p,
+    body.dark-mode .benefit-content p,
+    body.dark-mode .timeline-content p,
+    body.dark-mode .faq-answer {
+      color: var(--light);
+    }
+
+    body.dark-mode .feature-icon,
+    body.dark-mode .benefit-icon {
+      color: var(--light);
+    }
+
+    body.dark-mode .price,
+    body.dark-mode .pricing-features li {
+      color: var(--light);
+    }
+
+    body.dark-mode .pricing-features li {
+      border-color: rgba(248, 250, 252, 0.1);
+    }
+
+    body.dark-mode .pricing-features li::before {
+      color: var(--light);
+    }
+
+    body.dark-mode .timeline-number {
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    body.dark-mode .process-timeline::before {
+      background: var(--light);
+      opacity: 0.2;
+    }
+
+    body.dark-mode .btn-pricing {
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    body.dark-mode .btn-pricing:hover {
+      background: rgba(248, 250, 252, 0.9);
+    }
+
+    .site-footer {
+      background: var(--primary);
+      color: var(--light);
+      font-family: 'Gantari', system-ui;
+      width: 100%;
+      padding: 40px 0 0;
+    }
+
+    .footer-inner {
+      padding: 0 0 18px;
+    }
+
+    .site-footer,
+    .site-footer p,
+    .site-footer li,
+    .site-footer a,
+    .site-footer span,
+    .site-footer .footer-column-title,
+    .site-footer .footer-brand-title,
+    .site-footer .footer-text,
+    .site-footer .footer-contact-line,
+    .site-footer .footer-label,
+    .site-footer .footer-bottom {
+      font-family: 'Gantari', system-ui;
+      color: var(--light);
+    }
+
+    .site-footer p, .site-footer li, .site-footer span, .site-footer .footer-text, .site-footer .footer-contact-line {
+      font-size: 18px;
+    }
+
+    .footer-column-title {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+
+    .footer-brand-title .footer-column-title {
+      font-weight: 800;
+    }
+
+    .footer-text {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      max-width: 280px;
+    }
+
+    .footer-contact-line {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .footer-label {
+      font-weight: 600;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .footer-links {
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+      font-size: 18px;
+      list-style: none;
+    }
+
+    .footer-links li a {
+      transition: opacity 0.2s ease;
+      color: var(--light);
+      text-decoration: none;
+    }
+
+    .footer-links li a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-single-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-single-image img {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+      margin-bottom: 18px;
+    }
+
+    .footer-single-image img:hover {
+      transform: translateY(-5px);
+    }
+
+    .footer-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 5px;
+    }
+
+    .footer-social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      font-size: 18px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .footer-social-icon:hover {
+      background: var(--light);
+      color: var(--primary);
+      transform: translateY(-4px);
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 22px;
+      text-align: center;
+      font-size: 18px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 992px) {
+      .footer-grid .col-md-4:first-child {
+        width: 26%;
+        padding-right: 15px;
+      }
+      .footer-grid .col-md-4:nth-child(2) {
+        width: 32%;
+        padding-left: 20px;
+      }
+      .footer-grid .col-md-2 {
+        width: 18%;
+      }
+      .footer-grid .col-md-2:last-child {
+        width: 18%;
+      }
+      .footer-text {
+        max-width: 300px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-grid > [class*="col-"] {
+        width: 100%;
+        max-width: 450px;
+        margin-bottom: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-text {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-contact-line {
+        justify-content: center;
+      }
+      .footer-brand-title {
+        justify-content: center;
+      }
+      .footer-single-image img {
+        max-width: 180px;
+      }
+    }
+
+    @media (max-width: 1030px) {
+      .navbar-custom { 
+        padding: 10px 16px;
+        gap: 10px; 
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      
+      .brand {
+        order: 1;
+        flex: 1;
+      }
+      
+      .nav-actions.desktop-actions {
+        display: none;
+      }
+      
+      .menu-toggle {
+        display: inline-flex;
+        order: 3;
+        margin-left: 10px;
+        position: relative;
+        z-index: 120;
+      }
+      
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 280px;
+        height: auto;
+        max-height: 90vh;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background: var(--dark);
+        padding: 20px;
+        border-radius: 0 0 0 16px;
+        box-shadow: -12px 0 30px rgba(0, 0, 0, 0.85);
+        z-index: 110;
+        gap: 12px;
+        transition: right 0.3s ease;
+        border: 1px solid rgba(248, 250, 252, 0.6);
+        overflow-y: auto;
+        margin-top: 0;
+      }
+
+      body.dark-mode .nav-menu {
+        background: var(--dark);
+      }
+
+      .nav-menu.nav-open { right: 0; }
+      .nav-item { width: 100%; }
+      .nav-link-custom { width: 100%; padding: 10px 0; }
+      .dropdown-menu-custom { 
+        position: static; 
+        margin-top: 4px; 
+        background: transparent; 
+        border-radius: 0; 
+        border: none; 
+        box-shadow: none; 
+        padding: 0 0 4px 10px; 
+        display: none;
+      }
+      
+      .dropdown-menu-custom li a { padding: 8px 0; font-size: 15px; opacity: 0.85; }
+      .nav-item.dropdown.open>.dropdown-menu-custom { display: block; }
+      
+      .mobile-actions {
+        display: flex;
+      }
+      
+      .menu-toggle {
+        margin-left: auto;
+        position: relative;
+        z-index: 120;
+      }
+      
+      .service-detail-hero {
+        min-height: 350px;
+        padding: 0 20px;
+      }
+      .service-detail-hero h1 {
+        font-size: 42px;
+      }
+      .service-detail-hero p {
+        font-size: 18px;
+      }
+      
+      .section {
+        padding: 60px 20px;
+      }
+      
+      .overview-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .overview-image {
+        width: 100%;
+        height: 300px;
+      }
+      
+      .contact-cta {
+        margin: 60px 20px 0;
+        padding: 60px 20px;
+      }
+    }
+
+    @media (min-width: 1031px) {
+      .mobile-actions {
+        display: none;
+      }
+      
+      .nav-actions.desktop-actions {
+        display: flex;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page-wrapper { padding-top: 70px; }
+      .service-detail-hero { min-height: 300px; }
+      .service-detail-hero h1 { font-size: 36px; }
+      .service-detail-hero p { font-size: 16px; }
+      .section-title h2 { font-size: 30px; }
+      .section-title p { font-size: 16px; }
+      .service-features-grid, .pricing-cards { 
+        grid-template-columns: 1fr; 
+      }
+      .pricing-card.featured { 
+        transform: none; 
+      }
+      .process-timeline::before { 
+        left: 20px; 
+      }
+      .timeline-item { 
+        padding-left: 60px; 
+      }
+      .timeline-number { 
+        width: 40px; 
+        height: 40px; 
+        font-size: 16px; 
+      }
+      .benefit-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .contact-cta h2 {
+        font-size: 28px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .page-wrapper { padding-top: 60px; }
+      .brand span { font-size: 14px; }
+      .brand img { width: 40px; height: 40px; }
+      .nav-menu {
+        width: 250px;
+        max-height: 85vh;
+        top: 60px;
+        right: -250px;
+      }
+      .mobile-actions { padding: 15px 0; }
+      .mobile-actions .nav-actions { flex-direction: column; gap: 10px; }
+      .menu-toggle { margin-left: 10px; }
+      .service-detail-hero h1 { font-size: 32px; }
+      .price { font-size: 36px; }
+      .price span { font-size: 18px; }
+      .faq-question {
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+      .faq-answer {
+        font-size: 15px;
+      }
+      .btn-contact {
+        width: 100%;
+        padding: 12px 20px;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .nav-menu { width: 220px; right: -220px; }
+      .service-detail-hero h1 { font-size: 28px; }
+    }
+    
+    @media (max-width: 350px) {
+      .brand span { display: none; }
+      .brand { gap: 5px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <div class="content-layer">
+      <header>
+        <nav class="navbar-custom">
+          <div class="brand">
+            <img src="Images/logo.jpeg" alt="Compass Housing Society Logo">
+            <span>Compass Housing <br> Society</span>
+          </div>
+
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link-custom">Home1</a>
+            </li>
+            <li class="nav-item">
+              <a href="home2.html" class="nav-link-custom">Home2</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">Services</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="services.html">Service</a></li>
+                <li><a href="servicedetails.html">Services Details</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">Blog</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="blogdetails.html">Blog Details</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">About Us</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="additionalpage.html"> Additional Screens</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="contactus.html" class="nav-link-custom">Contact Us</a>
+            </li>
+            
+            <div class="mobile-actions">
+              <div class="nav-actions">
+                <button class="mode-toggle" type="button" aria-label="Toggle dark / light mode">
+                  <span class="mode-icon">🌙</span>
+                </button>
+                <a href="login.html">
+                  <button class="btn-register btn-animated" type="button">Login</button>
+                </a>
+              </div>
+            </div>
+          </ul>
+
+          <div class="nav-actions desktop-actions">
+            <button class="mode-toggle" type="button" aria-label="Toggle dark / light mode">
+              <span class="mode-icon">🌙</span>
+            </button>
+            <a href="login.html">
+              <button class="btn-register btn-animated" type="button">Login</button>
+            </a>
+          </div>
+
+          <button class="menu-toggle" type="button" aria-label="Toggle menu">☰</button>
+        </nav>
+      </header>
+
+      <section class="service-detail-hero">
+        <div class="container">
+          <div class="service-detail-hero-content">
+            <h1>Premium Property Management Services</h1>
+            <p>Comprehensive property management solutions designed to maximize your investment returns while minimizing your workload.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section service-overview">
+        <div class="container">
+          <div class="section-title">
+            <h2>Service Overview</h2>
+            <p>Our property management service provides end-to-end solutions for property owners looking to optimize their real estate investments.</p>
+          </div>
+          
+          <div class="overview-content">
+            <div class="overview-image"></div>
+            <div class="overview-text">
+              <h3>Complete Property Management Solution</h3>
+              <p>Our comprehensive property management service handles every aspect of your rental property, from tenant screening and rent collection to maintenance and legal compliance.</p>
+              <p>With over 15 years of experience in the real estate industry, we've developed systems and processes that ensure maximum occupancy rates, timely rent collection, and well-maintained properties.</p>
+              <p>We leverage technology to provide transparent reporting and real-time updates, giving you complete visibility into your property's performance while handling all the day-to-day management tasks.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Key Features</h2>
+            <p>Discover the comprehensive features included in our premium property management service.</p>
+          </div>
+          
+          <div class="service-features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">🔍</div>
+              <h4>Tenant Screening</h4>
+              <p>Comprehensive background checks, credit verification, and rental history analysis to ensure quality tenants.</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">💰</div>
+              <h4>Rent Collection</h4>
+              <p>Automated rent collection systems with multiple payment options and prompt disbursement to owners.</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">🛠️</div>
+              <h4>Maintenance</h4>
+              <p>24/7 emergency maintenance services and regular property inspections to maintain property value.</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">📄</div>
+              <h4>Legal Compliance</h4>
+              <p>Stay updated with changing rental laws and ensure all documentation complies with current regulations.</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">📊</div>
+              <h4>Financial Reporting</h4>
+              <p>Detailed monthly financial statements and annual tax preparation assistance for your properties.</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">📱</div>
+              <h4>Owner Portal</h4>
+              <p>Online access to property performance metrics, financial reports, and maintenance requests.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Our Process</h2>
+            <p>Our streamlined property management process ensures efficiency and excellence at every step.</p>
+          </div>
+          
+          <div class="process-timeline">
+            <div class="timeline-item">
+              <div class="timeline-number">1</div>
+              <div class="timeline-content">
+                <h4>Property Assessment</h4>
+                <p>Detailed evaluation of your property to determine optimal rental pricing and identify any necessary improvements.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-number">2</div>
+              <div class="timeline-content">
+                <h4>Marketing & Tenant Search</h4>
+                <p>Strategic marketing across multiple platforms to attract qualified tenants quickly.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-number">3</div>
+              <div class="timeline-content">
+                <h4>Tenant Screening & Selection</h4>
+                <p>Comprehensive background checks and interviews to select the most suitable tenants.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-number">4</div>
+              <div class="timeline-content">
+                <h4>Lease Agreement & Move-in</h4>
+                <p>Professional lease preparation and smooth tenant move-in process with proper documentation.</p>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-number">5</div>
+              <div class="timeline-content">
+                <h4>Ongoing Management</h4>
+                <p>Continuous property management including rent collection, maintenance, and tenant relations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing-section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Pricing Plans</h2>
+            <p>Choose the perfect property management plan for your needs and budget.</p>
+          </div>
+          
+          <div class="pricing-cards">
+            <div class="pricing-card">
+              <h3>Basic Management</h3>
+              <div class="price">8%<span>/month of rent</span></div>
+              <ul class="pricing-features">
+                <li>Rent Collection</li>
+                <li>Basic Maintenance Coordination</li>
+                <li>Monthly Financial Statements</li>
+                <li>Tenant Communication</li>
+                <li>Online Owner Portal</li>
+              </ul>
+            </div>
+            <div class="pricing-card">
+              <h3>Premium Management</h3>
+              <div class="price">10%<span>/month of rent</span></div>
+              <ul class="pricing-features">
+                <li>All Basic Features</li>
+                <li>Enhanced Maintenance</li>
+                <li>Quarterly Inspections</li>
+                <li>24/7 Emergency Support</li>
+                <li>Tax Documentation</li>
+              </ul>
+            </div>
+            <div class="pricing-card">
+              <h3>Complete Solution</h3>
+              <div class="price">12%<span>/month of rent</span></div>
+              <ul class="pricing-features">
+                <li>All Premium Features</li>
+                <li>Annual Property Improvement</li>
+                <li>Tax Preparation Support</li>
+                <li>Insurance Coordination</li>
+                <li>Dedicated Property Manager</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq-section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about our property management services.</p>
+          </div>
+          
+          <div class="faq-container">
+            <div class="faq-item">
+              <div class="faq-question">
+                What is included in your property management fee?
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                Our management fee includes tenant screening, rent collection, maintenance coordination, regular property inspections, 24/7 emergency support, monthly financial reporting, and legal compliance assistance. Additional services may include marketing, lease preparation, and tax documentation support depending on your chosen plan.
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <div class="faq-question">
+                How do you handle maintenance and repairs?
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                We have a network of vetted, licensed contractors for all types of repairs. For routine maintenance, we obtain multiple quotes and seek owner approval for expenses above a predetermined amount. For emergencies, we act immediately to protect your property and then inform you of the actions taken.
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <div class="faq-question">
+                What is your tenant screening process?
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                Our screening process includes credit checks, criminal background checks, employment verification, rental history verification, and income verification. We require tenants to have a credit score of at least 650, income 3 times the monthly rent, and no prior evictions or serious criminal history.
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <div class="faq-question">
+                How often will I receive financial reports?
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                You will receive detailed monthly financial statements by the 10th of each month. These reports include rent collected, expenses incurred, maintenance costs, and net income. All reports are accessible through our online owner portal 24/7, and we provide annual summaries for tax preparation.
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <div class="faq-question">
+                Can I terminate the management agreement?
+                <span class="faq-toggle">+</span>
+              </div>
+              <div class="faq-answer">
+                Yes, our agreement includes a 30-day notice period for termination by either party. We ensure a smooth transition by providing all necessary documentation, tenant information, and property status reports to you or your new management company.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer" id="contact">
+        <div class="container">
+          <div class="footer-inner">
+            <div class="row footer-grid g-4 align-items-start">
+              <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
+                <div class="footer-single-image">
+                  <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Compass Housing Project">
+                  <div class="footer-social-icons">
+                    <a href="https://www.facebook.com/" class="footer-social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com/" class="footer-social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/" class="footer-social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/" class="footer-social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Compass Housing</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="index.html">Start Here</a></li>
+                  <li><a href="aboutus.html">Our Story</a></li>
+                  <li><a href="services.html">What We Offer</a></li>
+                  <li><a href="blog.html">Latest News</a></li>
+                  <li><a href="contactus.html">Get in Touch</a></li>
+                </ul>
+              </div>              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Quick Links</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="aboutus.html">About us</a></li>
+                  <li><a href="services.html">Services</a></li>
+                  <li><a href="blog.html">Blog</a></li>
+                  <li><a href="contactus.html">Contact us</a></li>
+                </ul>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Properties</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="#">Luxury Apartments</a></li>
+                  <li><a href="#">Gated Communities</a></li>
+                  <li><a href="#">Commercial Spaces</a></li>
+                  <li><a href="#">Villas & Bungalows</a></li>
+                  <li><a href="#">Upcoming Projects</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              © Copyright Compass Housing Society 2024. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const modeToggles = document.querySelectorAll(".mode-toggle");
+      const modeIcons = document.querySelectorAll(".mode-icon");
+      const storedTheme = localStorage.getItem("compass-theme");
+
+      if (storedTheme === "dark") {
+        body.classList.add("dark-mode");
+        modeIcons.forEach(icon => icon.textContent = "☀️");
+      } else {
+        modeIcons.forEach(icon => icon.textContent = "🌙");
+      }
+
+      modeToggles.forEach(toggle => {
+        toggle.addEventListener("click", function () {
+          const isDark = body.classList.toggle("dark-mode");
+          modeIcons.forEach(icon => icon.textContent = isDark ? "☀️" : "🌙");
+          localStorage.setItem("compass-theme", isDark ? "dark" : "light");
+        });
+      });
+
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+
+      function closeMenu() {
+        if (navMenu) navMenu.classList.remove("nav-open");
+      }
+
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", function () {
+          navMenu.classList.toggle("nav-open");
+        });
+
+        document.addEventListener('click', function(event) {
+          const isClickInsideMenu = navMenu.contains(event.target);
+          const isClickOnToggle = menuToggle.contains(event.target);
+          
+          if (window.innerWidth <= 1030 && !isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('nav-open')) {
+            closeMenu();
+          }
+        });
+
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && window.innerWidth <= 1030 && navMenu.classList.contains('nav-open')) {
+            closeMenu();
+          }
+        });
+      }
+
+      const dropdownItems = document.querySelectorAll(".nav-item.dropdown > .nav-link-custom");
+
+      dropdownItems.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const parent = this.parentElement;
+
+          document.querySelectorAll(".nav-item.dropdown.open").forEach(item => {
+            if (item !== parent) {
+              item.classList.remove("open");
+            }
+          });
+
+          parent.classList.toggle("open");
+        });
+      });
+
+      const normalLinks = document.querySelectorAll(".nav-item:not(.dropdown) .nav-link-custom, .nav-item:not(.dropdown) a");
+
+      normalLinks.forEach(l => {
+        l.addEventListener("click", function () {
+          if (window.innerWidth <= 1030) {
+            closeMenu();
+          }
+        });
+      });
+
+      const mobileActionLinks = document.querySelectorAll(".mobile-actions a, .mobile-actions .mode-toggle, .mobile-actions .btn-register");
+      mobileActionLinks.forEach(link => {
+        link.addEventListener("click", function () {
+          if (window.innerWidth <= 1030) {
+            closeMenu();
+          }
+        });
+      });
+
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          item.classList.toggle('active');
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1030) {
+          closeMenu();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

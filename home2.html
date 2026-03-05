@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Compass Housing Society - Modern Living</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gantari:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #100E2C;
+      --light: #F8FAFC;
+      --dark: #000000;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Gantari', system-ui;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+
+    h1 { font-size: 46px; line-height: 1.2; }
+    h2 { font-size: 36px; line-height: 1.3; }
+    h3 { font-size: 24px; line-height: 1.4; }
+    h4, h5, h6 { font-size: 20px; line-height: 1.4; }
+    li, span, p { font-size: 18px; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("Images/transparent-logo.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 570px auto;
+      opacity: 0.10;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrapper {
+      max-width: 1920px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      padding-top: 82px;
+      background-color: var(--light);
+    }
+
+    .content-layer { position: relative; z-index: 1; }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--primary);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    .navbar-custom { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 24px; 
+      position: relative;
+      padding: 12px 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--light);
+    }
+
+    .brand img { 
+      width: 58px; 
+      height: 58px; 
+      object-fit: cover; 
+      border-radius: 50%; 
+      border: 2px solid var(--light); 
+      opacity: 0.97; 
+      background: transparent; 
+    }
+
+    .nav-menu { 
+      display: flex; 
+      align-items: center; 
+      gap: 24px; 
+      flex: 1; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+    }
+
+    .nav-item { position: relative; }
+    .nav-link-custom {
+      color: var(--light);
+      padding: 4px 0;
+      opacity: 0.9;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-link-custom::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background-color: var(--light);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link-custom:hover::after { width: 100%; }
+    .dropdown-toggle-custom::after { content: " ▾"; position: static; width: auto; height: auto; background: none; margin-left: 4px; }
+
+    .dropdown-menu-custom {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 6px);
+      background-color: var(--dark);
+      border-radius: 10px;
+      border: 1px solid rgba(248, 250, 252, 0.12);
+      min-width: 190px;
+      display: none;
+      padding: 6px 0;
+      z-index: 120;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .dropdown-menu-custom li a {
+      display: block;
+      padding: 8px 18px;
+      color: var(--light);
+      white-space: nowrap;
+      opacity: 0.9;
+      transition: background-color 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+    }
+
+    .dropdown-menu-custom li a:hover { background-color: rgba(27, 27, 27, 0.25); opacity: 1; color: var(--light); }
+    .nav-item.dropdown.open>.dropdown-menu-custom { display: block; }
+
+    .nav-actions { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      margin-left: auto; 
+    }
+
+    .btn-animated { 
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; 
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45); 
+    }
+
+    .btn-animated:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7); 
+      filter: brightness(0.96); 
+    }
+
+    .btn-register {
+      background: var(--light);
+      color: var(--dark);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+      padding-inline: 10px;
+      font-family: 'Gantari', system-ui;
+    }
+
+    .mode-toggle {
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      border-radius: 999px;
+      padding: 3px 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      color: var(--light);
+      background: transparent;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--light);
+      background: transparent;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+
+    .mobile-actions {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(248, 250, 252, 0.2);
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .mobile-actions .nav-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .hero-banner {
+      height: 70vh;
+      min-height: 500px;
+      background: linear-gradient(rgba(16, 14, 44, 0.85), rgba(16, 14, 44, 0.9)), 
+                  url('https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      color: var(--light);
+      padding: 0 30px;
+    }
+
+    .hero-banner-content {
+      max-width: 800px;
+    }
+
+    .hero-banner h1 {
+      color: var(--light);
+      margin-bottom: 20px;
+      font-size: 52px;
+    }
+
+    .hero-banner p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .section {
+      padding: 80px 30px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: var(--dark);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .stats-section {
+      background: var(--primary);
+      color: var(--light);
+      padding: 60px 30px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--light);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .featured-card {
+      background: var(--light);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(27, 27, 27, 0.1);
+    }
+
+    .featured-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .featured-image {
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .featured-content {
+      padding: 25px;
+    }
+
+    .featured-content h4 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .featured-price {
+      color: var(--dark);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .featured-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .featured-detail {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--dark);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .team-card {
+      text-align: center;
+      background: var(--light);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(27, 27, 27, 0.1);
+    }
+
+    .team-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background-size: cover;
+      background-position: center;
+      border: 3px solid var(--primary);
+    }
+
+    .team-card h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .team-role {
+      color: var(--dark);
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-slider {
+      background: var(--primary);
+      padding: 60px 30px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+
+    .testimonial-item {
+      text-align: center;
+      color: var(--light);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .testimonial-text {
+      font-size: 24px;
+      font-style: italic;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .testimonial-role {
+      opacity: 0.8;
+    }
+
+    body.dark-mode {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    body.dark-mode .page-wrapper {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode header,
+    body.dark-mode .site-footer {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode .nav-menu {
+      background: var(--dark);
+    }
+
+    body.dark-mode .dropdown-menu-custom {
+      background-color: var(--dark);
+    }
+
+    body.dark-mode .featured-card,
+    body.dark-mode .team-card {
+      background-color: var(--dark);
+      border-color: rgba(248, 250, 252, 0.1);
+    }
+
+    body.dark-mode .section-title h2 {
+      color: var(--light);
+    }
+
+    body.dark-mode .section-title p {
+      color: var(--light);
+    }
+
+    body.dark-mode .featured-content h4,
+    body.dark-mode .team-card h4 {
+      color: var(--light);
+    }
+
+    body.dark-mode .featured-price,
+    body.dark-mode .featured-detail,
+    body.dark-mode .team-role {
+      color: var(--light);
+    }
+
+    body.dark-mode .featured-content p,
+    body.dark-mode .team-card p {
+      color: var(--light);
+    }
+
+    body.dark-mode .stats-section {
+      background: var(--primary);
+    }
+
+    body.dark-mode .testimonial-slider {
+      background: var(--primary);
+    }
+
+    .site-footer {
+      background: var(--primary);
+      color: var(--light);
+      font-family: 'Gantari', system-ui;
+      width: 100%;
+      padding: 40px 0 0;
+    }
+
+    .footer-inner {
+      padding: 0 0 18px;
+    }
+
+    .site-footer,
+    .site-footer p,
+    .site-footer li,
+    .site-footer a,
+    .site-footer span,
+    .site-footer .footer-column-title,
+    .site-footer .footer-brand-title,
+    .site-footer .footer-text,
+    .site-footer .footer-contact-line,
+    .site-footer .footer-label,
+    .site-footer .footer-bottom {
+      font-family: 'Gantari', system-ui;
+      color: var(--light);
+    }
+
+    .site-footer p, .site-footer li, .site-footer span, .site-footer .footer-text, .site-footer .footer-contact-line {
+      font-size: 18px;
+    }
+
+    .footer-column-title {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+
+    .footer-brand-title .footer-column-title {
+      font-weight: 800;
+    }
+
+    .footer-text {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      max-width: 280px;
+    }
+
+    .footer-contact-line {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .footer-label {
+      font-weight: 600;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .footer-links {
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+      font-size: 18px;
+      list-style: none;
+    }
+
+    .footer-links li a {
+      transition: opacity 0.2s ease;
+      color: var(--light);
+      text-decoration: none;
+    }
+
+    .footer-links li a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-single-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-single-image img {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+      margin-bottom: 18px;
+    }
+
+    .footer-single-image img:hover {
+      transform: translateY(-5px);
+    }
+
+    .footer-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 5px;
+    }
+
+    .footer-social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      font-size: 18px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .footer-social-icon:hover {
+      background: var(--light);
+      color: var(--primary);
+      transform: translateY(-4px);
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 22px;
+      text-align: center;
+      font-size: 18px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 992px) {
+      .footer-grid .col-md-4:first-child {
+        width: 26%;
+        padding-right: 15px;
+      }
+      .footer-grid .col-md-4:nth-child(2) {
+        width: 32%;
+        padding-left: 20px;
+      }
+      .footer-grid .col-md-2 {
+        width: 18%;
+      }
+      .footer-grid .col-md-2:last-child {
+        width: 18%;
+      }
+      .footer-text {
+        max-width: 300px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-grid > [class*="col-"] {
+        width: 100%;
+        max-width: 450px;
+        margin-bottom: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-text {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer-contact-line {
+        justify-content: center;
+      }
+      .footer-brand-title {
+        justify-content: center;
+      }
+      .footer-single-image img {
+        max-width: 180px;
+      }
+    }
+
+    @media (max-width: 1030px) {
+      .navbar-custom { 
+        padding: 10px 16px;
+        gap: 10px; 
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .brand {
+        order: 1;
+        flex: 1;
+      }
+      .nav-actions.desktop-actions {
+        display: none;
+      }
+      .menu-toggle {
+        display: inline-flex;
+        order: 3;
+        margin-left: 10px;
+        position: relative;
+        z-index: 120;
+      }
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -280px;
+        width: 280px;
+        height: auto;
+        max-height: 90vh;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background: var(--dark);
+        padding: 20px;
+        border-radius: 0 0 0 16px;
+        box-shadow: -12px 0 30px rgba(0, 0, 0, 0.85);
+        z-index: 110;
+        gap: 12px;
+        transition: right 0.3s ease;
+        border: 1px solid rgba(248, 250, 252, 0.6);
+        overflow-y: auto;
+        margin-top: 0;
+      }
+      body.dark-mode .nav-menu {
+        background: var(--dark);
+      }
+      .nav-menu.nav-open { right: 0; }
+      .nav-item { width: 100%; }
+      .nav-link-custom { width: 100%; padding: 10px 0; }
+      .dropdown-menu-custom { 
+        position: static; 
+        margin-top: 4px; 
+        background: transparent; 
+        border-radius: 0; 
+        border: none; 
+        box-shadow: none; 
+        padding: 0 0 4px 10px; 
+        display: none;
+      }
+      .dropdown-menu-custom li a { padding: 8px 0; font-size: 15px; opacity: 0.85; }
+      .nav-item.dropdown.open>.dropdown-menu-custom { display: block; }
+      .mobile-actions {
+        display: flex;
+      }
+      .menu-toggle {
+        margin-left: auto;
+        position: relative;
+        z-index: 120;
+      }
+      .hero-banner {
+        min-height: 450px;
+        padding: 0 20px;
+      }
+      .hero-banner h1 {
+        font-size: 42px;
+      }
+      .hero-banner p {
+        font-size: 18px;
+      }
+      .section {
+        padding: 60px 20px;
+      }
+    }
+
+    @media (min-width: 1031px) {
+      .mobile-actions {
+        display: none;
+      }
+      .nav-actions.desktop-actions {
+        display: flex;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page-wrapper { padding-top: 70px; }
+      .hero-banner { 
+        height: auto; 
+        min-height: 400px; 
+        padding: 40px 20px; 
+      }
+      .hero-banner h1 { font-size: 36px; }
+      .hero-banner p { font-size: 16px; }
+      .section-title h2 { font-size: 30px; }
+      .stat-number { font-size: 36px; }
+      .stat-label { font-size: 16px; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-text { font-size: 20px; }
+    }
+    
+    @media (max-width: 576px) {
+      .page-wrapper { padding-top: 60px; }
+      .brand span { font-size: 14px; }
+      .brand img { width: 40px; height: 40px; }
+      .nav-menu {
+        width: 250px;
+        max-height: 85vh;
+        top: 60px;
+        right: -250px;
+      }
+      .mobile-actions { padding: 15px 0; }
+      .mobile-actions .nav-actions { flex-direction: column; gap: 10px; }
+      .menu-toggle { margin-left: 10px; }
+      .hero-banner { min-height: 350px; }
+      .hero-banner h1 { font-size: 32px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .team-card { padding: 20px; }
+      .stat-item { padding: 10px; }
+      .stat-number { font-size: 28px; }
+    }
+    
+    @media (max-width: 400px) {
+      .nav-menu { width: 220px; right: -220px; }
+      .hero-banner h1 { font-size: 28px; }
+    }
+    
+    @media (max-width: 350px) {
+      .brand span { display: none; }
+      .brand { gap: 5px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <div class="content-layer">
+      <header>
+        <nav class="navbar-custom">
+          <div class="brand">
+            <img src="Images/logo.jpeg" alt="Compass Housing Society Logo">
+            <span>Compass Housing <br> Society</span>
+          </div>
+
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link-custom">Home1</a>
+            </li>
+            <li class="nav-item">
+              <a href="home2.html" class="nav-link-custom">Home2</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">Services</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="services.html">Service</a></li>
+                <li><a href="servicedetails.html">Services Details</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">Blog</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="blogdetails.html">Blog Details</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <span class="nav-link-custom dropdown-toggle-custom">About Us</span>
+              <ul class="dropdown-menu-custom">
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="additionalpage.html"> Additional Screens</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="contactus.html" class="nav-link-custom">Contact Us</a>
+            </li>
+            
+            <div class="mobile-actions">
+              <div class="nav-actions">
+                <button class="mode-toggle" type="button" aria-label="Toggle dark / light mode">
+                  <span class="mode-icon">🌙</span>
+                </button>
+                <a href="login.html">
+                  <button class="btn-register btn-animated" type="button">Login</button>
+                </a>
+              </div>
+            </div>
+          </ul>
+
+          <div class="nav-actions desktop-actions">
+            <button class="mode-toggle" type="button" aria-label="Toggle dark / light mode">
+              <span class="mode-icon">🌙</span>
+            </button>
+            <a href="login.html">
+              <button class="btn-register btn-animated" type="button">Login</button>
+            </a>
+          </div>
+
+          <button class="menu-toggle" type="button" aria-label="Toggle menu">☰</button>
+        </nav>
+      </header>
+
+      <section class="hero-banner">
+        <div class="container">
+          <div class="hero-banner-content">
+            <h1>Modern Living Spaces for the Future</h1>
+            <p>Experience premium residential communities with state-of-the-art amenities, sustainable design, and unparalleled comfort.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Premium Properties</h2>
+            <p>Discover our exclusive collection of modern homes designed for contemporary living</p>
+          </div>
+          
+          <div class="featured-grid">
+            <div class="featured-card">
+              <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div>
+              <div class="featured-content">
+                <h4>Skyline Apartments</h4>
+                <p>Downtown Miami with panoramic ocean views</p>
+                <div class="featured-price">$850,000</div>
+                <div class="featured-details">
+                  <div class="featured-detail">3 Bed</div>
+                  <div class="featured-detail">3 Bath</div>
+                  <div class="featured-detail">2200 sqft</div>
+                  <div class="featured-detail">Pool</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="featured-card">
+              <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div>
+              <div class="featured-content">
+                <h4>Garden Villas</h4>
+                <p>Suburban tranquility with modern amenities good</p>
+                <div class="featured-price">$1,200,000</div>
+                <div class="featured-details">
+                  <div class="featured-detail">4 Bed</div>
+                  <div class="featured-detail">3.5 Bath</div>
+                  <div class="featured-detail">3500 sqft</div>
+                  <div class="featured-detail">Garden</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="featured-card">
+              <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"></div>
+              <div class="featured-content">
+                <h4>Urban Lofts</h4>
+                <p>Industrial-chic spaces in the heart of Chicago</p>
+                <div class="featured-price">$650,000</div>
+                <div class="featured-details">
+                  <div class="featured-detail">2 Bed</div>
+                  <div class="featured-detail">2 Bath</div>
+                  <div class="featured-detail">1800 sqft</div>
+                  <div class="featured-detail">Loft</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Properties Developed</span>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="stat-item">
+                <span class="stat-number">25+</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Client Satisfaction</span>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="stat-item">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Cities Presence</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background: rgba(16, 14, 44, 0.05);">
+        <div class="container">
+          <div class="section-title">
+            <h2>Meet Our Expert Team</h2>
+            <p>Our dedicated professionals ensure your property journey is seamless and successful</p>
+          </div>
+          
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+              <h4>Michael Chen</h4>
+              <div class="team-role">Senior Property Consultant</div>
+              <p>15+ years experience in luxury real estate</p>
+            </div>
+
+            <div class="team-card">
+              <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+              <h4>Sarah Johnson</h4>
+              <div class="team-role">Interior Design Director</div>
+              <p>Specialized in modern sustainable design</p>
+            </div>
+
+            <div class="team-card">
+              <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+              <h4>David Wilson</h4>
+              <div class="team-role">Project Manager</div>
+              <p>Ensuring quality and timely delivery</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Client Testimonials</h2>
+            <p>See what our clients say about their experience with Compass Housing</p>
+          </div>
+          
+          <div class="testimonial-slider">
+            <div class="testimonial-item">
+              <div class="testimonial-text">
+                "Compass Housing transformed our living experience. The attention to detail and quality of construction is unmatched. Our new home exceeded all expectations."
+              </div>
+              <div class="testimonial-author">Robert Martinez</div>
+              <div class="testimonial-role">Skyline Apartments Resident</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer" id="contact">
+        <div class="container">
+          <div class="footer-inner">
+            <div class="row footer-grid g-4 align-items-start">
+              <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start">
+                <div class="footer-single-image">
+                  <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Compass Housing Project">
+                  <div class="footer-social-icons">
+                    <a href="https://www.facebook.com/" class="footer-social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com/" class="footer-social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/" class="footer-social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/" class="footer-social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Compass Housing</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="index.html">Start Here</a></li>
+                  <li><a href="aboutus.html">Our Story</a></li>
+                  <li><a href="services.html">What We Offer</a></li>
+                  <li><a href="blog.html">Latest News</a></li>
+                  <li><a href="contactus.html">Get in Touch</a></li>
+                </ul>
+              </div>              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Quick Links</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="aboutus.html">About us</a></li>
+                  <li><a href="services.html">Services</a></li>
+                  <li><a href="blog.html">Blog</a></li>
+                  <li><a href="contactus.html">Contact us</a></li>
+                </ul>
+              </div>
+              <div class="col-md-2 col-sm-6 d-flex flex-column align-items-center align-items-md-start">
+                <h4 class="footer-column-title">Properties</h4>
+                <ul class="footer-links text-center text-md-start">
+                  <li><a href="#">Luxury Apartments</a></li>
+                  <li><a href="#">Gated Communities</a></li>
+                  <li><a href="#">Commercial Spaces</a></li>
+                  <li><a href="#">Villas & Bungalows</a></li>
+                  <li><a href="#">Upcoming Projects</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              © Copyright Compass Housing Society 2024. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const body = document.body;
+      const modeToggles = document.querySelectorAll(".mode-toggle");
+      const modeIcons = document.querySelectorAll(".mode-icon");
+      const storedTheme = localStorage.getItem("compass-theme");
+
+      if (storedTheme === "dark") {
+        body.classList.add("dark-mode");
+        modeIcons.forEach(icon => icon.textContent = "☀️");
+      } else {
+        modeIcons.forEach(icon => icon.textContent = "🌙");
+      }
+
+      modeToggles.forEach(toggle => {
+        toggle.addEventListener("click", function () {
+          const isDark = body.classList.toggle("dark-mode");
+          modeIcons.forEach(icon => icon.textContent = isDark ? "☀️" : "🌙");
+          localStorage.setItem("compass-theme", isDark ? "dark" : "light");
+        });
+      });
+
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+
+      function closeMenu() {
+        if (navMenu) navMenu.classList.remove("nav-open");
+      }
+
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", function () {
+          navMenu.classList.toggle("nav-open");
+        });
+
+        document.addEventListener('click', function(event) {
+          const isClickInsideMenu = navMenu.contains(event.target);
+          const isClickOnToggle = menuToggle.contains(event.target);
+          
+          if (window.innerWidth <= 1030 && !isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('nav-open')) {
+            closeMenu();
+          }
+        });
+
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && window.innerWidth <= 1030 && navMenu.classList.contains('nav-open')) {
+            closeMenu();
+          }
+        });
+      }
+
+      const dropdownItems = document.querySelectorAll(".nav-item.dropdown > .nav-link-custom");
+
+      dropdownItems.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const parent = this.parentElement;
+
+          document.querySelectorAll(".nav-item.dropdown.open").forEach(item => {
+            if (item !== parent) {
+              item.classList.remove("open");
+            }
+          });
+
+          parent.classList.toggle("open");
+        });
+      });
+
+      const normalLinks = document.querySelectorAll(".nav-item:not(.dropdown) .nav-link-custom, .nav-item:not(.dropdown) a");
+
+      normalLinks.forEach(l => {
+        l.addEventListener("click", function () {
+          if (window.innerWidth <= 1030) {
+            closeMenu();
+          }
+        });
+      });
+
+      const mobileActionLinks = document.querySelectorAll(".mobile-actions a, .mobile-actions .mode-toggle, .mobile-actions .btn-register");
+      mobileActionLinks.forEach(link => {
+        link.addEventListener("click", function () {
+          if (window.innerWidth <= 1030) {
+            closeMenu();
+          }
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1030) {
+          closeMenu();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
